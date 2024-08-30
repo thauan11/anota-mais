@@ -1,0 +1,30 @@
+.erro-container {
+  min-height: calc(100vh - 100px);
+  display: grid;
+  place-items: center;
+}
+
+.erro-container div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.25rem;
+}
+
+.erro-container h1 {
+  font-size: 3rem;
+}
+
+.erro-container p {
+  padding-bottom: 64px;
+}
+
+.erro-container a {
+  display: flex;
+  align-items: center;
+}
+
+.erro-container a svg {
+  padding-right: 16px;
+}

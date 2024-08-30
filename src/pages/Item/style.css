@@ -1,61 +1,106 @@
 .item-container {
-  display: flex;
-  justify-content: center;
-  padding-top: 100px;
+  max-width: 30%;
+  margin: 0 auto;
+  margin-top: 100px;
 }
 
-.item-title {
+.item-container > div {
+  margin: 50px;
+}
+
+.item-container .item-title {
+  margin-bottom: 3rem;
+}
+
+.item-container .item-title h3 {
+  font-size: 1.25em;
+  text-align: center;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  cursor: pointer;
   position: relative;
-  display: flex;
-  justify-content: center;
+  padding-bottom: 20px;
+  text-transform: uppercase;
 }
 
-.item-title::after {
+.item-container .item-title h3::after {
   content: '';
   position: absolute;
-  bottom: 40px;
-  left: 0;
-  background-color: black;
-  width: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 0;
   height: 2px;
+  width: 100%;
+  background-color: black;
   border-radius: 50%;
-  transition: all 0.3s ease;
+  opacity: 0.5;
 }
 
-.item-title h1 {
-  text-transform: uppercase;
+.item-container .item-title input {
   text-align: center;
-  padding-bottom: 50px;
+  width: 100%;
+  font-size: 1.25em;
+  border: none;
+  outline: transparent;
+  padding-bottom: 20px;
+}
+
+.item-container .item-list {
+  margin: 0 15px;
+}
+
+.item-container .item-list ul {
+  display: block;
+}
+
+.item-container .item-list ul li {
+  display: block;
+  margin-bottom: 10px;
   position: relative;
+}
+
+.item-container .item-list ul li span {
+  word-break: break-word;
+  white-space: normal;
   cursor: pointer;
 }
 
-.item-title input {
-  text-align: center;
-  margin-bottom: 50px;
-  outline: transparent;
+.item-container .item-list ul li textarea {
+  resize: none;
+  width: 100%;
+  overflow-y: hidden;
   border: none;
-  font-size: 2rem;
-  font-weight: 600;
+  outline: transparent;
+  padding-bottom: 5px;
+  font-size: 1.15em;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-.item-container ul {
-  margin-bottom: 150px;
-  list-style-position: inside;
-}
-
-.item-container ul li {
-  margin-bottom: 8px;
-}
-
-.item-container ul li span {
+.item-container .item-list ul li button {
+  position: absolute;
+  left: 0;
+  top: 2.5px;
+  transform: scale(1.15);
+  border: none;
+  background-color: transparent;
   cursor: pointer;
+  display: grid;
+  place-items: center;
+  opacity: 0.5;
 }
 
-.item-container .atribute-edit {
-  width: calc(100% - 18px);
-  outline: transparent;
-  border: none;
-  font-size: 1.05rem;
-  font-weight: 600;
+.item-container .item-list ul li button:hover {
+  color: red;
+  opacity: 1;
+}
+
+.item-container .item-list ul li button:hover::after {
+  content: 'Remover';
+  position: absolute;
+  font-size: 10px;
+  bottom: 50%;
+  transform: translateY(50%);
+  left: -45px;
+  opacity: 0.8;
 }
