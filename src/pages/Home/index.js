@@ -146,7 +146,8 @@ function Home() {
                 <button onClick={() => removeItem(item.id)}><IoTrashOutline/></button>
 
                 <div className="item">
-                  <Link to={'/item/'+item.id} >{item.name}</Link>
+                  <Link to={'/item/'+item.id}>{item.name}</Link>
+                  <pre>({item.atributos.length})</pre>
                 </div>
 
               </div>
