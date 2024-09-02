@@ -253,6 +253,7 @@ function Item() {
                     type="text"
                     value={newAttribute}
                     onChange={(e) => setNewAttribute(e.target.value)}
+                    onInput={handleTextareaInput}
                     autoFocus
                   />
                 </div>
