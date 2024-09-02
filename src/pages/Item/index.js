@@ -259,8 +259,8 @@ function Item() {
                 </div>
                 
                 <div className="atributo-new-buttons">
-                  <button onClick={handleAddAttribute}> Salvar </button>
                   <button onClick={toggleAddAttribute}> Cancelar </button>
+                  <button onClick={handleAddAttribute}> Salvar </button>
                 </div>
               </div>
             )}

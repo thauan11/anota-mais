@@ -210,12 +210,14 @@
 
 .item-page .container .atributos .atributo .atributo-edit .atributo-edit-buttons button:first-child,
 .item-page .container .atributos .atributo-new .atributo-new-buttons button:first-child {
-  color: black;
-  background-color: #FAF9F6;
+  background-color: rgba(255, 0, 0, 0.7);
+  color: #FAF9F6;
 }
 
 .item-page .container .atributos .atributo .atributo-edit .atributo-edit-buttons button:last-child,
 .item-page .container .atributos .atributo-new .atributo-new-buttons button:last-child {
+  /* color: black;
+  background-color: #FAF9F6; */
   background-color: black;
   color: #FAF9F6;
 }
