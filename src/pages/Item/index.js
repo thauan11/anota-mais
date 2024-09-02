@@ -203,8 +203,8 @@ function Item() {
                     </div>
                     
                     <div className="atributo-edit-buttons">
-                      <button onClick={() => handleAttributeChange(index)}> Salvar </button>
                       <button onClick={handleAttributeChangeCancel}> Cancelar </button>
+                      <button onClick={() => handleAttributeChange(index)}> Salvar </button>
                     </div>
                   </div>
                 ) : (
