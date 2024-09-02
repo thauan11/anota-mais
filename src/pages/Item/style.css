@@ -1,5 +1,5 @@
 .item-page {
-  width: 50%;
+  width: 60%;
   height: 100vh;
   overflow: hidden;
   margin: 0 auto;
@@ -59,14 +59,23 @@
 
 .item-page .container .atributos .atributo-new,
 .item-page .container .atributos .atributo {
-  max-width: 192px;
+  max-width: 256px;
   padding: 10px;
   background-color: rgba(236, 236, 236, 0.8);
   border-radius: 6px;
-  float: left;
-  margin: 25px;
+  margin: 15px 20px;
   position: relative;
   animation: drop 0.5s ease;
+  float: left;
+  /* display: inline-block;
+  vertical-align: top; */
+}
+
+.item-page .container .atributos .atributo-new::after,
+.item-page .container .atributos .atributo::after {
+  content: "";
+  display: table;
+  clear: both;
 }
 
 .item-page .container .atributos .atributo .content {
@@ -94,7 +103,7 @@
   margin-bottom: 10px;
   position: relative;
   overflow: hidden;
-  width: calc(192px - 20px);
+  width: calc(256px - 20px);
 }
 
 .item-page .container .atributos .atributo .content .image img {
