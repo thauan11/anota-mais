@@ -75,8 +75,13 @@
 
 .item-page .container .atributos .atributo .content .texto {
   display: block;
-  word-break: break-all;
+  word-break: break-word;
   white-space: pre-line;
+}
+
+.item-page .container .atributos .atributo .content .texto span {
+  display: block;
+  text-align: justify;
 }
 
 .item-page .container .atributos .atributo .content .image {
@@ -104,11 +109,6 @@
 
 .item-page .container .atributos .atributo .content .image svg {
   transform: scale(2);
-}
-
-.item-page .container .atributos .atributo .content span {
-  display: block;
-  text-align: justify;
 }
 
 .item-page .container .atributos .atributo .btn-close {
