@@ -1,0 +1,90 @@
+.menu-lateral.raiz {
+  width: 50px;
+  height: 100vh;
+  background-color: #1C1C1C;
+  color: #fff;
+  top: 0;
+  left: 0;
+  box-shadow: 10px 0 10px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease-in-out;
+}
+
+.menu-lateral.raiz:hover {
+  width: 200px;
+}
+
+.menu-lateral {
+  width: 200px;
+  height: 100vh;
+  background-color: #1C1C1C;
+  color: #fff;
+  top: 0;
+  left: 0;
+  box-shadow: 10px 0 10px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease-in-out;
+  user-select: none;
+}
+
+.menu-lateral div {
+  display: grid;
+  place-items: center;
+}
+
+.menu-lateral .logo {
+  padding: 20px 0;
+  display: grid;
+  place-items: center;
+  user-select: none;
+}
+
+.menu-lateral .logo img {
+  width: auto;
+  height: 40px;
+  padding: 5px;
+}
+
+.menu-lateral .logo svg {
+  width: auto;
+  height: 40px;
+  padding: 5px;
+  color: #fff;
+}
+
+.menu-lateral.raiz .borda-raiz {
+  border-top: 1px solid grey;
+  animation: slide 0.2s ease-out;
+  margin: 0 20px;
+} 
+
+.menu-lateral .lista {
+  display: block;
+  margin: 0 20px;
+} 
+
+.menu-lateral .lista ul {
+  padding: 25px 0;
+  list-style: none;
+  border-top: 1px solid grey;
+  border-bottom: 1px solid grey;
+  animation: slide 0.2s ease-out;
+}
+
+.menu-lateral .lista ul li {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding: 0 5px;
+  padding-bottom: 5px;
+  font-size: 14px;
+  animation: slide 0.1s ease-out;
+}
+
+.menu-lateral .lista ul li::before {
+  content: '•';
+  margin-right: 10px;
+}
+
+.menu-lateral .lista a {
+  text-decoration: none;
+  color: #fff;
+} 

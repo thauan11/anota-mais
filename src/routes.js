@@ -1,13 +1,13 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from './pages/Home';
-import Header from './components/header';
+import Menu from './components/Menu';
 import Erro from './pages/Erro';
 import Item from './pages/Item';
 
 function RoutesApp() {
   return(
     <BrowserRouter>
-      <Header/>
+      <Menu/>
       <Routes>
         <Route path="*" element={<Erro/>}/>
         <Route path="/" element={<Home/>}/>

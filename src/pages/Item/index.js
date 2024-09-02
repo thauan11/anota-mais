@@ -1,6 +1,7 @@
 import { useEffect, useState} from "react";
 import { useParams } from "react-router-dom";
-import { IoAdd, IoCloseSharp } from "react-icons/io5";
+import { IoAdd, IoCloseSharp, IoImageOutline } from "react-icons/io5";
+import validator from 'validator'
 import './style.css'
 
 function Item() {
@@ -9,12 +10,14 @@ function Item() {
 
   const [isAddAttribute, setIsAddAttribute] = useState(false);
   const [newAttribute, setNewAttribute] = useState('');
+  const [newAttributeImageURL, setNewAttributeImageURL] = useState('');
 
   const [isEditingTitle, setIsEditingTitle] = useState(false);
   const [updateTitle, setUpdateTitle] = useState('');
 
   const [editingAttributeIndex, setEditingAttributeIndex] = useState(null);
   const [updateAttribute, setUpdateAttribute] = useState('');
+  const [updateAttributeImageURL, setUpdateAttributeImageURL] = useState('');
   
   useEffect(() => {
     const listaStorage = localStorage.getItem('itens');
@@ -31,16 +34,22 @@ function Item() {
   const toggleAddAttribute = () => {
     setIsAddAttribute(!isAddAttribute);
     setNewAttribute('');
+    setNewAttributeImageURL('');
   };
 
   const handleAddAttribute = () => {
-    if (newAttribute) {
-      const novoItem = {
+    const attributeObject = {
+      texto: newAttribute,
+      imageURL: newAttributeImageURL,
+    };
+
+    if (attributeObject.texto.length > 0) {
+      const atributosAtualizado = {
         ...item, 
-        atributo: [...item.atributo, `${newAttribute}`] 
-      };
-      
-      setItem(novoItem);
+        atributos: [...item.atributos, attributeObject]
+      }
+
+      setItem(atributosAtualizado);
 
       const listaStorage = localStorage.getItem('itens');
       if (listaStorage) {
@@ -48,7 +57,7 @@ function Item() {
         const index = itens.findIndex((i) => i.id === parseInt(id));
 
         if (index !== -1) {
-          itens[index] = novoItem;
+          itens[index] = atributosAtualizado;
           localStorage.setItem('itens', JSON.stringify(itens)); 
         }
       }
@@ -81,15 +90,16 @@ function Item() {
 
   const toggleEditAttribute = (index) => {
     setEditingAttributeIndex(index);
-    setUpdateAttribute(item.atributo[index]);
+    setUpdateAttribute(item.atributos[index].texto);
+    setUpdateAttributeImageURL(item.atributos[index].imageURL);
   };
-
+  
   const handleAttributeChange = (index) => {
     if (updateAttribute) {
-      const updatedAttributes = [...item.atributo];
-      updatedAttributes[index] = updateAttribute;
+      const updatedAttributes = [...item.atributos];
+      updatedAttributes[index] = {texto: updateAttribute, imageURL: updateAttributeImageURL};
 
-      const updatedItem = { ...item, atributo: updatedAttributes };
+      const updatedItem = { ...item, atributos: updatedAttributes };
       setItem(updatedItem);
 
       const listaStorage = localStorage.getItem('itens');
@@ -107,11 +117,17 @@ function Item() {
     }
   };
 
+  function handleAttributeChangeCancel() {
+    setUpdateAttribute('');
+    setUpdateAttributeImageURL('');
+    setEditingAttributeIndex(null);
+  };
+
   const handleRemoveAttribute = (index) => {
-    const updatedAttributes = [...item.atributo];
+    const updatedAttributes = [...item.atributos];
     updatedAttributes.splice(index, 1);
 
-    const updatedItem = { ...item, atributo: updatedAttributes };
+    const updatedItem = { ...item, atributos: updatedAttributes };
     setItem(updatedItem);
 
     const listaStorage = localStorage.getItem('itens');
@@ -130,68 +146,138 @@ function Item() {
     e.target.style.height = 'auto';
     e.target.style.height = `${e.target.scrollHeight}px`;
   };
+  
+  const validate = (value) => { 
+    if (validator.isURL(value)) { 
+      return true
+    } else { 
+      return false
+    } 
+  } 
 
   return(
-    <div className="item-container">
+    <>
+      <div className="item-page">
 
-      <div>
-        <div className="item-title">
-          {isEditingTitle ? (
-            <input
-              className="title-edit"
-              type="text"
-              value={updateTitle}
-              onChange={(e) => setUpdateTitle(e.target.value)}
-              onBlur={handleTitleChange}
-              autoFocus
-            />
-          ) : (
-            <h3 onClick={toggleEditTitle}>{item.name}</h3>
-          )}
-        </div>
+        <div className="container">
 
-        <div className="item-list">
-          <ul>
-            {item.atributo && item.atributo.map((valor, index) => (
-              <li key={index}>
+          <div className="title">
+            {isEditingTitle ? (
+              <input
+                className="input"
+                type="text"
+                value={updateTitle}
+                onChange={(e) => setUpdateTitle(e.target.value)}
+                onBlur={handleTitleChange}
+                autoFocus
+              />
+            ) : (
+              <h3 onClick={toggleEditTitle}>{item.name}</h3>
+            )}
+          </div>
+
+          <div className="atributos">
+            {item.atributos && item.atributos.map((atributo, index) => (
+              <div key={index} className="atributo">
                 {editingAttributeIndex === index ? (
-                  <textarea
-                    type="text"
-                    value={updateAttribute}
-                    onChange={(e) => setUpdateAttribute(e.target.value)}
-                    onBlur={() => handleAttributeChange(index)}
-                    onInput={handleTextareaInput}
-                    autoFocus
-                  />
+                  <div className="atributo-edit">
+                    <div>
+                      <p>URL da imagem: </p>
+                      <input
+                        type="text"
+                        value={updateAttributeImageURL}
+                        onChange={(e) => setUpdateAttributeImageURL(e.target.value)}
+                      />
+                    </div>
+
+                    <div>
+                      <p>Texto: </p>
+                      <textarea
+                        type="text"
+                        value={updateAttribute}
+                        onChange={(e) => setUpdateAttribute(e.target.value)}
+                        onInput={handleTextareaInput}
+                        onFocus={handleTextareaInput}
+                        autoFocus
+                      />
+                    </div>
+                    
+                    <div className="atributo-edit-buttons">
+                      <button onClick={() => handleAttributeChange(index)}> Salvar </button>
+                      <button onClick={handleAttributeChangeCancel}> Cancelar </button>
+                    </div>
+                  </div>
                 ) : (
-                  <span onClick={() => toggleEditAttribute(index)}>{valor}</span>
+                  <div onClick={() => toggleEditAttribute(index)} className="content">
+                    {atributo.imageURL ? (
+                      <div className="image">
+                        {validate(atributo.imageURL) ? (
+                          <img src={atributo.imageURL} alt={`Imagem ${index}`} />
+                        ) : (
+                          <IoImageOutline/>
+                        )}
+                      </div>
+                    ) : ``}
+
+                    <div className="texto">
+                      <span>{atributo.texto}</span>
+                    </div>
+                  </div>
                 )}
-                <button onClick={() => handleRemoveAttribute(index)}>
+
+                <button
+                  className="btn-close"
+                  onClick={() => handleRemoveAttribute(index)}
+                >
                   <IoCloseSharp />
                 </button>
-              </li>
-            ))}
-          </ul>
-        </div>
 
-        <div className="buttons">
-          {isAddAttribute ? (
-            <input
-              type="text"
-              value={newAttribute}
-              onChange={(e) => setNewAttribute(e.target.value)}
-              onBlur={handleAddAttribute}
-              autoFocus
-            />
-          ) : (
-            <div className="buttons-div">
-              <button onClick={toggleAddAttribute}><IoAdd/></button>
-            </div>
-          )}
+              </div>
+
+            ))}
+
+            {isAddAttribute && (
+              <div className="atributo-new">
+                <div>
+                  <p>URL da imagem: </p>
+                  <input
+                    type="text"
+                    value={newAttributeImageURL}
+                    onChange={(e) => setNewAttributeImageURL(e.target.value)}
+                  />
+                </div>
+
+                <div>
+                  <p>Texto: </p>
+                  <textarea
+                    type="text"
+                    value={newAttribute}
+                    onChange={(e) => setNewAttribute(e.target.value)}
+                    autoFocus
+                  />
+                </div>
+                
+                <div className="atributo-new-buttons">
+                  <button onClick={handleAddAttribute}> Salvar </button>
+                  <button onClick={toggleAddAttribute}> Cancelar </button>
+                </div>
+              </div>
+            )}
+
+          </div>
+
         </div>
 
       </div>
-    </div>
+
+      <div className="botoes">
+        <div className="btn">
+          <button onClick={toggleAddAttribute}><IoAdd/></button>
+          <pre>Adicionar</pre>
+        </div>
+      </div>
+
+    </>
   );
 
 }

@@ -1,106 +1,212 @@
-.item-container {
-  max-width: 30%;
-  margin: 0 auto;
-  margin-top: 100px;
-}
-
-.item-container > div {
-  margin: 50px;
-}
-
-.item-container .item-title {
-  margin-bottom: 3rem;
-}
-
-.item-container .item-title h3 {
-  font-size: 1.25em;
-  text-align: center;
+.item-page {
+  width: 50%;
+  height: 100vh;
   overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  cursor: pointer;
+  margin: 0 auto;
   position: relative;
-  padding-bottom: 20px;
-  text-transform: uppercase;
 }
 
-.item-container .item-title h3::after {
-  content: '';
+.item-page .container {
   position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  bottom: 0;
-  height: 2px;
+  top: 0;
+  left: 0;
   width: 100%;
-  background-color: black;
-  border-radius: 50%;
-  opacity: 0.5;
+  height: 100%;
+  padding: 0 50px;
+  padding-top: 100px;
 }
 
-.item-container .item-title input {
+.item-page .container .title {
+  padding-bottom: 50px;
+  margin-bottom: 50px;
+  border-bottom: 1px solid grey;
   text-align: center;
+}
+
+.item-page .container .title h3 {
+  cursor: pointer;
+}
+
+.item-page .container .title .input {
+  padding-left: 10px;
+  text-align: center;
+  font-weight: 400;
+  font-size: 1.1em;
+  font-family: 'Georgia', serif;
+  letter-spacing: 0.65px;
+}
+
+.item-page .container .title input::before {
+  content: '•';
+  margin-right: 10px;
+}
+
+.item-page .container .title input {
   width: 100%;
-  font-size: 1.25em;
+  padding: 2px 0;
+  outline: none;
   border: none;
-  outline: transparent;
-  padding-bottom: 20px;
+  background-color: transparent;
 }
 
-.item-container .item-list {
-  margin: 0 15px;
+.item-page .container .atributos {
+  scrollbar-width: thin;
+  /* display: flex; */
+  /* flex-wrap: wrap; */
+  overflow-y: auto;
+  max-height: 80%;
 }
 
-.item-container .item-list ul {
+.item-page .container .atributos .atributo-new,
+.item-page .container .atributos .atributo {
+  max-width: 192px;
+  padding: 10px;
+  background-color: rgba(236, 236, 236, 0.8);
+  border-radius: 6px;
+  float: left;
+  margin: 25px;
+  position: relative;
+  animation: drop 0.5s ease;
+}
+
+.item-page .container .atributos .atributo .content {
+  cursor: pointer;
+}
+
+.item-page .container .atributos .atributo .content .texto {
   display: block;
+  word-break: break-all;
+  white-space: pre-line;
 }
 
-.item-container .item-list ul li {
-  display: block;
+.item-page .container .atributos .atributo .content .image {
+  background-color: #FAF9F6;
+  border-radius: 6px;
+  display: grid;
+  place-items: center;
+  height: 180px;
+  max-height: 180px;
   margin-bottom: 10px;
   position: relative;
+  overflow: hidden;
+  width: calc(192px - 20px);
 }
 
-.item-container .item-list ul li span {
-  word-break: break-word;
-  white-space: normal;
+.item-page .container .atributos .atributo .content .image img {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.item-page .container .atributos .atributo .content .image svg {
+  transform: scale(2);
+}
+
+.item-page .container .atributos .atributo .content span {
+  display: block;
+  text-align: justify;
+}
+
+.item-page .container .atributos .atributo .btn-close {
+  position: absolute;
+  top: -7.5px;
+  right: -7px;
+  border: none;
+  background-color: red;
+  color: #FAF9F6;
+  opacity: 0.5;
+  border-radius: 100%;
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
+  transition: all 0.3s ease;
 }
 
-.item-container .item-list ul li textarea {
+.item-page .container .atributos .atributo .btn-close:hover {
+  transform: scale(1.2);
+  opacity: 1;
+}
+
+.item-page .container .atributos .atributo .btn-close svg {
+  transform: scale(0.8);
+}
+
+.item-page .container .atributos .atributo .atributo-edit,
+.item-page .container .atributos .atributo-new {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.item-page .container .atributos .atributo .atributo-edit p,
+.item-page .container .atributos .atributo-new p {
+  font-weight: bold;
+  font-size: 14px;
+  padding-bottom: 5px;
+}
+
+.item-page .container .atributos .atributo .atributo-edit textarea,
+.item-page .container .atributos .atributo-new textarea {
   resize: none;
   width: 100%;
   overflow-y: hidden;
   border: none;
   outline: transparent;
-  padding-bottom: 5px;
+  background-color: #FAF9F6;
+  padding: 5px;
+  /* padding-bottom: 15px; */
+  margin-bottom: 15px;
   font-size: 1.15em;
+  border-radius: 6px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-.item-container .item-list ul li button {
-  position: absolute;
-  left: 0;
-  top: 2.5px;
-  transform: scale(1.15);
+.item-page .container .atributos .atributo .atributo-edit input,
+.item-page .container .atributos .atributo-new input {
+  width: 100%;
   border: none;
-  background-color: transparent;
+  outline: transparent;
+  background-color: #FAF9F6;
+  padding: 5px;
+  margin-bottom: 15px;
+  border-radius: 6px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.item-page .container .atributos .atributo .atributo-edit .atributo-edit-buttons,
+.item-page .container .atributos .atributo-new .atributo-new-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  width: 100%;
+}
+
+.item-page .container .atributos .atributo .atributo-edit .atributo-edit-buttons button,
+.item-page .container .atributos .atributo-new .atributo-new-buttons button {
+  width: 50%;
+  border: none;
+  background-color: none;
+  padding: 5px;
+  margin: 0 5px;
+  border-radius: 6px;
   cursor: pointer;
-  display: grid;
-  place-items: center;
-  opacity: 0.5;
 }
 
-.item-container .item-list ul li button:hover {
-  color: red;
-  opacity: 1;
+.item-page .container .atributos .atributo .atributo-edit .atributo-edit-buttons button:first-child,
+.item-page .container .atributos .atributo-new .atributo-new-buttons button:first-child {
+  color: black;
+  background-color: #FAF9F6;
 }
 
-.item-container .item-list ul li button:hover::after {
-  content: 'Remover';
-  position: absolute;
-  font-size: 10px;
-  bottom: 50%;
-  transform: translateY(50%);
-  left: -45px;
-  opacity: 0.8;
+.item-page .container .atributos .atributo .atributo-edit .atributo-edit-buttons button:last-child,
+.item-page .container .atributos .atributo-new .atributo-new-buttons button:last-child {
+  background-color: black;
+  color: #FAF9F6;
 }

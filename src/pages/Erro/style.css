@@ -1,5 +1,5 @@
 .erro-container {
-  min-height: calc(100vh - 100px);
+  width: 100%;
   display: grid;
   place-items: center;
 }
@@ -23,8 +23,9 @@
 .erro-container a {
   display: flex;
   align-items: center;
+  color: black;
 }
 
 .erro-container a svg {
-  padding-right: 16px;
+  margin-right: 16px;
 }
