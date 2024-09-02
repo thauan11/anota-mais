@@ -145,7 +145,7 @@
 .botoes {
   position: absolute;
   bottom: 30%;
-  right: 20%;
+  right: 15%;
   display: flex;
   flex-direction: column;
 }
