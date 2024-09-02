@@ -66,17 +66,17 @@
   margin: 15px 20px;
   position: relative;
   animation: drop 0.5s ease;
-  float: left;
-  /* display: inline-block;
-  vertical-align: top; */
+  /* float: left; */
+  display: inline-block;
+  vertical-align: top;
 }
 
-.item-page .container .atributos .atributo-new::after,
+/* .item-page .container .atributos .atributo-new::after,
 .item-page .container .atributos .atributo::after {
   content: "";
   display: table;
   clear: both;
-}
+} */
 
 .item-page .container .atributos .atributo .content {
   cursor: pointer;
