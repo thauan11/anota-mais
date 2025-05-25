@@ -34,20 +34,21 @@
 .home .container .search input {
   width: 90%;
   border: 1px solid grey;
-  border-radius: 20px;
-  padding: 7.5px 20px 7.5px 40px;
+  border-radius: 50px;
+  padding: 10px 40px;
   background-color: #FAF9F6;
   outline: transparent;
   transition: outline 0.3s ease-out;
+  position: relative;
 }
 
 .home .container .search input:focus {
-  outline: 1px solid #000;
+  outline: 1px solid rgba(0, 0, 0, 0.25);
 }
 
 .home .container .search svg {
   position: absolute;
-  left: 7%;
+  left: 2.25rem;
 }
 
 .home .container .lista {
@@ -120,10 +121,15 @@
 
 .home .container .lista .item > div {
   position: absolute;
-  right: 1rem;
+  right: 0;
   display: flex;
   flex-direction: row;
   gap: 0.5rem;
+  transition: right 0.1s linear;
+}
+
+.home .container .lista .item:hover > div {
+  right: 0.5rem;
 }
 
 .home .container .lista .input {
