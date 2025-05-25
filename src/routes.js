@@ -7,7 +7,7 @@ import Item from './pages/Item';
 function RoutesApp() {
   return(
     <BrowserRouter>
-      <Menu/>
+      {/* <Menu/> */}
       <Routes>
         <Route path="*" element={<Erro/>}/>
         <Route path="/" element={<Home/>}/>

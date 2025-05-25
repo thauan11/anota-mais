@@ -1,7 +1,7 @@
 .home {
-  width: 55%;
+  width: 100%;
+  max-width: 480px;
   height: 100vh;
-  overflow: hidden;
   margin: 0 auto;
   position: relative;
 }
@@ -12,23 +12,16 @@
   left: 0;
   width: 100%;
   height: 100%;
-  padding: 0 50px;
-  padding-top: 100px;
 }
 
-.home .container .title {
-  padding-bottom: 50px;
-  border-bottom: 1px solid grey;
+.home .container.vazio::after {
+  content: 'Nenhum item encontrado';
+  position: absolute;
+  color: #000;
+  font-weight: 700;
+  width: 100%;
   text-align: center;
-}
-
-.home .container .title > div {
-  background-color: transparent;
-  border-radius: 8px;
-  padding: 16px;
-  font-weight: 600;
-  box-shadow: none;
-  animation: slide 0.5s ease-out;
+  animation: slide 0.3s ease-out;
 }
 
 .home .container .search {
@@ -36,7 +29,6 @@
   display: grid;
   place-items: center;
   position: relative;
-  animation: slide 0.7s ease-out;
 }
 
 .home .container .search input {
@@ -45,12 +37,12 @@
   border-radius: 20px;
   padding: 7.5px 20px 7.5px 40px;
   background-color: #FAF9F6;
-  outline: none;
-  transition: all 0.3s;
+  outline: transparent;
+  transition: outline 0.3s ease-out;
 }
 
 .home .container .search input:focus {
-  box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.3);
+  outline: 1px solid #000;
 }
 
 .home .container .search svg {
@@ -60,11 +52,10 @@
 
 .home .container .lista {
   display: flex;
-  justify-content: center;
-  display: block;
-  overflow-y: auto;
-  max-height: 70%;
-  margin-bottom: 100px;
+  flex-direction: column;
+  gap: 8px;
+  overflow-y: hidden;
+  max-height: 80%;
   scrollbar-width: thin;
 }
 
@@ -79,17 +70,14 @@
 }
 
 .home .container .lista button {
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%) scale(1.25);
   display: grid;
   place-items: center;
   border: none;
   background-color: transparent;
   cursor: pointer;
   opacity: 0.5;
-  visibility: hidden;
+  display: none;
+  animation: slide-reverse 0.2s ease-out;
 }
 
 .home .container .lista button:hover {
@@ -97,17 +85,17 @@
 }
 
 .home .container .lista > div:hover button {
-  visibility: visible;
+  display: block;
 }
 
 .home .container .lista .item {
-  margin-right: 35px;
   display: flex;
   align-items: center;
   animation: slide 0.3s ease-out;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  position: relative;
 }
 
 .home .container .lista .item pre {
@@ -130,9 +118,17 @@
   margin-right: 10px;
 }
 
+.home .container .lista .item > div {
+  position: absolute;
+  right: 1rem;
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+}
+
 .home .container .lista .input {
   padding-left: 10px;
-  background-color: #FAF9F6;
+  background-color: rgba(236, 236, 236, 0.8);
   border-radius: 8px;
 }
 
@@ -149,12 +145,16 @@
   background-color: transparent;
 }
 
+
+
 .botoes {
   position: absolute;
-  bottom: 30%;
-  right: 15%;
+  bottom: 50%;
+  transform: translateY(50%);
+  right: -60px;
   display: flex;
   flex-direction: column;
+  z-index: 99;
 }
 
 .botoes .btn {
@@ -199,6 +199,8 @@
 .botoes .btn:hover pre {
   display: block;
 }
+
+
 
 #modal {
   display: none;

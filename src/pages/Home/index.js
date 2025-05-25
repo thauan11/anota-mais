@@ -5,48 +5,20 @@ import { IoSearch, IoTrashOutline, IoAdd, IoCloudUploadOutline, IoCloudDownloadO
 import './style.css'
 
 function Home() {
+  // states
   const [itens, setItens] = useState([]);
-  const [fileContent, setFileContent] = useState("");
   const [searchTerm, setSearchTerm] = useState('');
-  
-  const [isAddItem, setIsAddItem] = useState(false);
+  // state add item
   const [newItem, setNewItem] = useState('');
+  const [isAddItem, setIsAddItem] = useState(false);
 
+  // efects
   useEffect(() => {
     const listaStorage = localStorage.getItem('itens');
-    if (listaStorage) {
-      setItens(JSON.parse(listaStorage));
-    }
+    if (listaStorage) setItens(JSON.parse(listaStorage));
   }, []);
 
-  useEffect(() => {
-    if (searchTerm) {
-      const itensFiltrados = JSON.parse(localStorage.getItem('itens') || '[]').filter((item) =>
-        item.name.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-      setItens(itensFiltrados);
-    } else {
-      const listaStorage = localStorage.getItem('itens');
-      if (listaStorage) {
-        setItens(JSON.parse(listaStorage));
-      }
-    }
-  }, [searchTerm]);
-
-  const handleSearch = (e) => {
-    setSearchTerm(e.target.value);
-  };
-
-  const toggleAddItem = () => {
-    setIsAddItem(!isAddItem);
-    setNewItem('');
-  };
-
-  function handleEventUpdate() {
-    const event = new Event("localStorageUpdate");
-    window.dispatchEvent(event);
-  };
-
+  // functions
   const handleAddItem = () => {
     if (newItem) {
       const itemObject = {
@@ -59,14 +31,14 @@ function Home() {
         const itensAtualizado = [...itens, itemObject]
         setItens(itensAtualizado);
         localStorage.setItem('itens', JSON.stringify(itensAtualizado));
-        handleEventUpdate();
+        // handleEventUpdate();
         setNewItem('');
       }
     }
     setIsAddItem(false);
   };
 
-  function removeItem(id) {
+  const removeItem = (id) => {
     const itens = JSON.parse(localStorage.getItem('itens')) || [];
     const hasItem = itens.some(item => item.id === id);
 
@@ -74,122 +46,91 @@ function Home() {
       const novaLista = itens.filter(item => item.id !== id);
       localStorage.setItem('itens', JSON.stringify(novaLista));
       setItens(novaLista);
-      handleEventUpdate();
+      // handleEventUpdate();
     }
-  };
-
-  function closeModal(e) {
-    const modal = document.getElementById('modal');
-    if (e.target == modal) {
-      modal.classList.remove('ativo');
-    }
-  };
-
-  function toggleFileUpload() {
-    const modal = document.getElementById('modal');
-    modal.classList.toggle('ativo');
-  };
-
-  const handleFileUpload = (event) => {
-    const file = event.target.files[0];
-    if (file && file.type === "text/plain") {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        try {
-          const jsonContent = JSON.parse(e.target.result);
-          setFileContent(JSON.stringify(jsonContent, null, 2));
-          setItens(jsonContent);
-          localStorage.setItem('itens', JSON.stringify(jsonContent));
-          handleEventUpdate();
-          toggleFileUpload();
-        } catch (error) {
-          alert("O conteúdo do arquivo não é um JSON válido.");
-        }
-      };
-      reader.readAsText(file);
-    } else {
-      alert("Por favor, selecione um arquivo .txt válido.");
-    }
-  };
-
-  const handleFileDownload = () => {
-    const blob = new Blob([JSON.stringify(itens, null, 2)], { type: "application/json" });
-    saveAs(blob, "notas.txt");
   };
 
   return(
     <>
       <div className="home">
-        
-        <div className="container">
-          
-          <div className='title'>
-            {itens.length > 0 ? (
-              <div>Sua lista</div>
-            ) : (
-              <div>Sua lista está vazia</div>
-            )}
-          </div>
-
+        <div className={`container ${itens.length === 0 && !isAddItem ? "vazio" : ""}`}>
           <div className="search">
             <input
               type="search"
               value={searchTerm}
-              onChange={handleSearch}
+              // onChange={handleSearch}
             />
             <IoSearch/>
           </div>
 
-          <div className="lista">
+          <section className="lista">
             {itens.map(item => (
               <div key={item.id}>
-                <button onClick={() => removeItem(item.id)}><IoTrashOutline/></button>
-
                 <div className="item">
-                  <Link to={'/item/'+item.id}>{item.name}</Link>
-                  <pre>({item.atributos.length})</pre>
-                </div>
+                  <Link to={`/item/${item.id}`}>{item.name}</Link>
 
+                  <div>
+                    <pre>({item.atributos.length})</pre>
+                    <button
+                      type="button"
+                      onClick={() => removeItem(item.id)}
+                    >
+                      <IoTrashOutline/>
+                    </button>
+                  </div>
+                </div>
               </div>
             ))}
 
-            <div className={`item ${isAddItem ? `input`:``}`}>
-              {isAddItem ? (
+            {isAddItem && (
+              <div className={`item ${isAddItem ? "input":""}`}>
                 <input
                   type="text"
                   value={newItem}
                   onChange={(e) => setNewItem(e.target.value)}
                   onBlur={handleAddItem}
+                  // biome-ignore lint/a11y/noAutofocus: <explanation>
                   autoFocus
                 />
-              ) : ``}
-            </div>
+              </div>
+            )}
+          </section>
+        </div>
 
+        <div className="botoes">
+          <div className="btn">
+            <button
+              type="button"
+              onClick={() => setIsAddItem(true)}
+            >
+              <IoAdd/>
+            </button>
+            <pre>Adicionar</pre>
           </div>
 
-        </div>
+          <div className="btn">
+            <button
+              type="button"
+              // onClick={toggleFileUpload}
+            >
+              <IoCloudUploadOutline/>
+            </button>
+            <pre>Upload</pre>
+          </div>
 
+          <div className="btn">
+            <button
+              type="button"
+              // onClick={handleFileDownload}
+            >
+              <IoCloudDownloadOutline/>
+            </button>
+            <pre>Download</pre>
+          </div>
+        </div>
       </div>
 
-      <div className="botoes">
-        <div className="btn">
-          <button onClick={toggleAddItem}><IoAdd/></button>
-          <pre>Adicionar</pre>
-        </div>
-
-        <div className="btn">
-          <button onClick={toggleFileUpload}><IoCloudUploadOutline/></button>
-          <pre>Upload</pre>
-        </div>
-
-        <div className="btn">
-          <button onClick={handleFileDownload}><IoCloudDownloadOutline/></button>
-          <pre>Download</pre>
-        </div>
-
-      </div>
-
-      <div id="modal" onClick={closeModal}>
+      {/* <div id="modal" onClick={closeModal}>
         <div className="container">
           <input
             type="file"
@@ -197,7 +138,7 @@ function Home() {
             onChange={handleFileUpload}
           />
         </div>
-      </div>
+      </div> */}
 
     </>
   );
