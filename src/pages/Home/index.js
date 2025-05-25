@@ -17,6 +17,20 @@ function Home() {
     const listaStorage = localStorage.getItem('itens');
     if (listaStorage) setItens(JSON.parse(listaStorage));
   }, []);
+  
+  useEffect(() => {
+    if (searchTerm) {
+      const itensFiltrados = JSON.parse(localStorage.getItem('itens') || '[]').filter((item) =>
+        item.name.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      setItens(itensFiltrados);
+    } else {
+      const listaStorage = localStorage.getItem('itens');
+      if (listaStorage) {
+        setItens(JSON.parse(listaStorage));
+      }
+    }
+  }, [searchTerm]);
 
   // functions
   const handleAddItem = () => {
@@ -50,6 +64,8 @@ function Home() {
     }
   };
 
+  const handleSearch = (e) => setSearchTerm(e.target.value);
+
   return(
     <>
       <div className="home">
@@ -58,7 +74,7 @@ function Home() {
             <input
               type="search"
               value={searchTerm}
-              // onChange={handleSearch}
+              onChange={handleSearch}
             />
             <IoSearch/>
           </div>
