@@ -23,7 +23,7 @@ function Item() {
     const listaStorage = localStorage.getItem('itens');
     if (listaStorage) {
       const itens = JSON.parse(listaStorage);
-      const itemEncontrado = itens.find((item) => item.id === parseInt(id));
+      const itemEncontrado = itens.find((item) => item.id === String(id));
 
       if (itemEncontrado) {
         setItem(itemEncontrado);

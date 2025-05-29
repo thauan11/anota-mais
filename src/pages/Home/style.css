@@ -157,10 +157,14 @@
   position: absolute;
   bottom: 50%;
   transform: translateY(50%);
-  right: -60px;
+  right: -120px;
   display: flex;
   flex-direction: column;
   z-index: 99;
+}
+
+input[type='file'] {
+  color: transparent;
 }
 
 .botoes .btn {
@@ -204,11 +208,12 @@
 
 .botoes .btn:hover pre {
   display: block;
+  color: #000;
 }
 
 
 
-#modal {
+/* #modal {
   display: none;
 }
 
@@ -232,4 +237,4 @@
   margin-top: 25%;
   padding: 50px;
   border-radius: 6px;
-}
+} */
